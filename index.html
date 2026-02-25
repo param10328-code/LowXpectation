@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OJ Platform | Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta -->
+    <meta name="description" content="OJ Platform - Practice coding, track progress, and compete on the leaderboard.">
+    <meta name="author" content="OJ Platform Team">
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+</body>
+</html>
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <h2 class="logo">OJ Platform</h2>
+        </div>
+
+        <div class="nav-center">
+            <a href="index.html" class="nav-link active">Dashboard</a>
+            <a href="problems.html" class="nav-link">Problems</a>
+            <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+            <a href="analytics.html" class="nav-link">Analytics</a>
+        </div>
+
+        <!-- ✅ Updated Profile Button -->
+        <div class="nav-right">
+            <a href="profile.html" class="user-badge">👤 CodeMaster</a>
+        </div>
+    </nav>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="dashboard">
+
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h1>
+                Welcome Back, 
+                <span id="usernameDisplay">CodeMaster</span>
+            </h1>
+            <p>Track your coding journey and continue improving your skills.</p>
+        </section>
+
+        <!-- ================= STATS CARDS ================= -->
+        <section class="stats-container">
+
+            <div class="stat-card">
+                <h3>Total Problems</h3>
+                <p id="totalProblems">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Problems Solved</h3>
+                <p id="problemsSolved">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total Submissions</h3>
+                <p id="totalSubmissions">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Accuracy</h3>
+                <p id="accuracyPercent">0%</p>
+            </div>
+
+        </section>
+
+        <!-- ================= QUICK ACTIONS ================= -->
+        <section class="quick-actions">
+
+            <div class="action-card">
+                <h3>Start Solving</h3>
+                <p>Explore curated coding challenges by difficulty level.</p>
+                <a href="problems.html" class="btn-primary">Browse Problems</a>
+                <section id="problems-section">
+    
+    <div id="problems-list"></div>
+</section>
+            </div>
+
+            <div class="action-card">
+                <h3>View Leaderboard</h3>
+                <p>See how you rank among other competitive coders.</p>
+                <a href="leaderboard.html" class="btn-primary">Open Leaderboard</a>
+            </div>
+
+            <div class="action-card">
+                <h3>Performance Analytics</h3>
+                <p>Analyze your submission trends and success rate.</p>
+                <a href="analytics.html" class="btn-primary">View Analytics</a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Shared JS -->
+    <script src="js/script.js"></script>
+
+</body>
+</html>

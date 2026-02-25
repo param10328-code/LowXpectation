@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OJ Platform | Problems</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Browse and solve coding problems by difficulty and topic.">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <h2 class="logo">OJ Platform</h2>
+        </div>
+
+        <div class="nav-center">
+            <a href="index.html" class="nav-link">Dashboard</a>
+            <a href="problems.html" class="nav-link active">Problems</a>
+            <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+            <a href="analytics.html" class="nav-link">Analytics</a>
+        </div>
+
+        <div class="nav-right">
+            <span class="user-badge">👤 CodeMaster</span>
+        </div>
+    </nav>
+
+    <!-- ================= MAIN ================= -->
+    <main class="problems-page">
+
+        <!-- Header -->
+        <section class="page-header">
+            <h1>Problem Explorer</h1>
+            <p>Sharpen your skills by solving curated coding challenges.</p>
+        </section>
+
+        <!-- Quick Stats Strip -->
+        <section class="problem-stats-strip">
+            <div class="problem-stat-box">
+                <span>Total Problems</span>
+                <strong id="totalProblemsCount">0</strong>
+            </div>
+            <div class="problem-stat-box easy-box">
+                <span>Easy</span>
+                <strong id="easyCount">0</strong>
+            </div>
+            <div class="problem-stat-box medium-box">
+                <span>Medium</span>
+                <strong id="mediumCount">0</strong>
+            </div>
+            <div class="problem-stat-box hard-box">
+                <span>Hard</span>
+                <strong id="hardCount">0</strong>
+            </div>
+        </section>
+
+        <!-- Filters & Controls -->
+        <section class="filters-section">
+
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Search by title..." 
+                class="search-bar"
+            >
+
+            <select id="difficultyFilter" class="filter-dropdown">
+                <option value="All">All Difficulties</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+
+            <select id="sortProblems" class="filter-dropdown">
+                <option value="default">Sort by Default</option>
+                <option value="difficulty">Sort by Difficulty</option>
+                <option value="solved">Sort by Solved Status</option>
+            </select>
+
+        </section>
+
+        <!-- Problem List -->
+        <section class="problems-container" id="problemsContainer">
+            <!-- JS will dynamically render problems -->
+        </section>
+
+        <!-- Solve Progress Section -->
+        <section class="solve-progress-section">
+            <h2>Your Progress</h2>
+            <div class="progress-overview">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="overallProgressBar"></div>
+                </div>
+                <span id="overallProgressText">0% Completed</span>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // ================= PROBLEM DATABASE =================
+const problems = [
+  { id:1, title:"Two Sum", difficulty:"Easy", solved:false },
+  { id:2, title:"Palindrome Number", difficulty:"Easy", solved:true },
+  { id:3, title:"Valid Parentheses", difficulty:"Easy", solved:false },
+
+  { id:4, title:"Longest Substring Without Repeating Characters", difficulty:"Medium", solved:false },
+  { id:5, title:"Merge Intervals", difficulty:"Medium", solved:true },
+  { id:6, title:"Binary Tree Level Order Traversal", difficulty:"Medium", solved:false },
+
+  { id:7, title:"LRU Cache", difficulty:"Hard", solved:false },
+  { id:8, title:"Word Ladder", difficulty:"Hard", solved:false },
+  { id:9, title:"Median of Two Sorted Arrays", difficulty:"Hard", solved:false }
+];
+
+
+// ================= RENDER PROBLEMS =================
+function renderProblems(list){
+    const container = document.getElementById("problemsContainer");
+    if(!container) return;
+
+    container.innerHTML = "";
+
+    list.forEach(p=>{
+        const card = document.createElement("div");
+        card.className = "problem-card";
+
+        card.innerHTML = `
+            <h3>${p.title}</h3>
+            <span class="difficulty ${p.difficulty.toLowerCase()}">${p.difficulty}</span>
+            <br><br>
+            <button class="btn-primary" onclick="toggleSolved(${p.id})">
+                ${p.solved ? "Solved ✓" : "Solve"}
+            </button>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+
+// ================= TOGGLE SOLVED =================
+function toggleSolved(id){
+    const prob = problems.find(p=>p.id===id);
+    prob.solved = !prob.solved;
+    applyFilters();
+}
+
+
+// ================= FILTER + SEARCH =================
+function applyFilters(){
+
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    const difficulty = document.getElementById("difficultyFilter").value;
+    const sort = document.getElementById("sortProblems").value;
+
+    let filtered = problems.filter(p =>
+        p.title.toLowerCase().includes(search)
+    );
+
+    if(difficulty !== "All"){
+        filtered = filtered.filter(p => p.difficulty === difficulty);
+    }
+
+    if(sort === "difficulty"){
+        const order = {Easy:1, Medium:2, Hard:3};
+        filtered.sort((a,b)=>order[a.difficulty]-order[b.difficulty]);
+    }
+
+    if(sort === "solved"){
+        filtered.sort((a,b)=>b.solved - a.solved);
+    }
+
+    renderProblems(filtered);
+    updateStats();
+}
+
+
+// ================= STATS =================
+function updateStats(){
+
+    document.getElementById("totalProblemsCount").textContent = problems.length;
+
+    document.getElementById("easyCount").textContent =
+        problems.filter(p=>p.difficulty==="Easy").length;
+
+    document.getElementById("mediumCount").textContent =
+        problems.filter(p=>p.difficulty==="Medium").length;
+
+    document.getElementById("hardCount").textContent =
+        problems.filter(p=>p.difficulty==="Hard").length;
+
+    const solved = problems.filter(p=>p.solved).length;
+    const percent = Math.round((solved/problems.length)*100);
+
+    document.getElementById("overallProgressBar").style.width = percent+"%";
+    document.getElementById("overallProgressText").textContent =
+        percent+"% Completed";
+}
+
+
+// ================= EVENT LISTENERS =================
+document.addEventListener("DOMContentLoaded", ()=>{
+
+    renderProblems(problems);
+    updateStats();
+
+    document.getElementById("searchInput").addEventListener("input", applyFilters);
+    document.getElementById("difficultyFilter").addEventListener("change", applyFilters);
+    document.getElementById("sortProblems").addEventListener("change", applyFilters);
+});
+    </script>
+
+</body>
+</html>

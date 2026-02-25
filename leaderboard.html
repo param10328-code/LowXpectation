@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OJ Platform | Leaderboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Compete with top programmers and track rankings.">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>l
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <h2 class="logo">OJ Platform</h2>
+        </div>
+
+        <div class="nav-center">
+            <a href="index.html" class="nav-link">Dashboard</a>
+            <a href="problems.html" class="nav-link">Problems</a>
+            <a href="leaderboard.html" class="nav-link active">Leaderboard</a>
+            <a href="analytics.html" class="nav-link">Analytics</a>
+        </div>
+
+        <div class="nav-right">
+            <span class="user-badge">👤 CodeMaster</span>
+        </div>
+    </nav>
+
+    <!-- ================= MAIN ================= -->
+    <main class="leaderboard-page">
+
+        <!-- Header -->
+        <section class="page-header">
+            <h1>Global Leaderboard</h1>
+            <p>See how you rank among the best competitive programmers.</p>
+        </section>
+
+        <!-- Top 3 Podium -->
+        <section class="leaderboard-podium">
+
+            <div class="podium-card first">
+                <span class="podium-rank">🥇</span>
+                <h3 id="firstPlaceName">User1</h3>
+                <p id="firstPlaceScore">0 Solved</p>
+            </div>
+
+            <div class="podium-card second">
+                <span class="podium-rank">🥈</span>
+                <h3 id="secondPlaceName">User2</h3>
+                <p id="secondPlaceScore">0 solved</p>
+            </div>
+
+            <div class="podium-card third">
+                <span class="podium-rank">🥉</span>
+                <h3 id="thirdPlaceName">User3</h3>
+                <p id="thirdPlaceScore">0 Solved</p>
+            </div>
+        </section>
+
+        <!-- Controls -->
+        <section class="leaderboard-controls">
+            <input 
+                type="text" 
+                id="leaderboardSearch" 
+                placeholder="Search username..." 
+                class="search-bar"
+            >
+
+            <select id="leaderboardSort" class="filter-dropdown">
+                <option value="solved">Sort by Problems Solved</option>
+                <option value="accuracy">Sort by Accuracy</option>
+                <option value="submissions">Sort by Submissions</option>
+            </select>
+        </section>
+
+        <!-- Leaderboard Table -->
+        <section class="leaderboard-container">
+
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Username</th>
+                        <th>Solved</th>
+                        <th>Submissions</th>
+                        <th>Accuracy</th>
+                        <th>Win Rate</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                    <!-- JS inject rows -->
+                </tbody>
+            </table>
+
+        </section>
+
+        <!-- Current User Highlight -->
+        <section class="leaderboard-current-user">
+            <h2>Your Ranking</h2>
+            <div id="currentUserCard">
+                <!-- JS inject -->
+            </div>
+        </section>
+        <main class="leaderboard-page">
+
+    <div class="page-header">
+        <h1>🏆 Leaderboard</h1>
+        <p>Top performers on the platform</p>
+    </div>
+
+    <table class="leaderboard-table" id="leaderboardTable">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>User</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+
+        <tbody id="leaderboardBody">
+
+            <tr><td></td><td>Akash Kumar</td><td>980</td></tr>
+            <tr><td></td><td>Rohit Sharma</td><td>920</td></tr>
+            <tr><td></td><td>Priya Singh</td><td>900</td></tr>
+            <tr><td></td><td>Aditya Verma</td><td>870</td></tr>
+            <tr><td></td><td>Neha Gupta</td><td>850</td></tr>
+            <tr><td></td><td>Karan Mehta</td><td>830</td></tr>
+            <tr><td></td><td>Sneha Kapoor</td><td>810</td></tr>
+            <tr><td></td><td>Vikas Yadav</td><td>790</td></tr>
+            <tr><td></td><td>Rahul Jain</td><td>770</td></tr>
+            <tr><td></td><td>Anjali Mishra</td><td>750</td></tr>
+            <tr><td></td><td>Mohit Agarwal</td><td>730</td></tr>
+            <tr><td></td><td>Pooja Saxena</td><td>710</td></tr>
+            <tr><td></td><td>Arjun Nair</td><td>690</td></tr>
+            <tr><td></td><td>Simran Kaur</td><td>670</td></tr>
+            <tr><td></td><td>Dev Patel</td><td>650</td></tr>
+            <tr><td></td><td>Isha Sharma</td><td>630</td></tr>
+            <tr><td></td><td>Manish Tiwari</td><td>610</td></tr>
+            <tr><td></td><td>Ritika Das</td><td>590</td></tr>
+            <tr><td></td><td>Aman Khan</td><td>570</td></tr>
+            <tr><td></td><td>Kavya Reddy</td><td>550</td></tr>
+
+        </tbody>
+    </table>
+
+</main>
+
+
+<script>
+    // Get table rows
+    const table = document.getElementById("leaderboardBody");
+    const rows = Array.from(table.rows);
+
+    // Sort rows by score (3rd column)
+    rows.sort((a, b) => {
+        const scoreA = parseInt(a.cells[2].innerText);
+        const scoreB = parseInt(b.cells[2].innerText);
+        return scoreB - scoreA;
+    });
+
+    // Re-append sorted rows & assign rank
+    rows.forEach((row, index) => {
+        row.cells[0].innerText = index + 1;
+
+        // Highlight top 3
+        if(index === 0) row.style.background = "rgba(255,215,0,0.15)";
+        if(index === 1) row.style.background = "rgba(192,192,192,0.15)";
+        if(index === 2) row.style.background = "rgba(205,127,50,0.15)";
+
+        table.appendChild(row);
+    });
+</script>
+
+    </main>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>

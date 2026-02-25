@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OJ Platform | Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="OJ Platform Dashboard - Track your coding progress and compete globally.">
+    <meta name="author" content="OJ Platform">
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <h2 class="logo">OJ Platform</h2>
+        </div>
+
+        <div class="nav-center">
+            <a href="index.html" class="nav-link active">Dashboard</a>
+            <a href="problems.html" class="nav-link">Problems</a>
+            <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+            <a href="analytics.html" class="nav-link">Analytics</a>
+        </div>
+
+        <div class="nav-right">
+            <span class="user-badge">👤 CodeMaster</span>
+        </div>
+    </nav>
+
+    <!-- ================= MAIN ================= -->
+    <main class="dashboard">
+
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div>
+                <h1>
+                    Welcome back, 
+                    <span id="usernameDisplay">CodeMaster</span>
+                </h1>
+                <p>Keep solving. Keep improving. Your next milestone awaits.</p>
+            </div>
+
+            <div class="dashboard-badges">
+                <div class="badge-box">
+                    🔥 <span id="streakCount">1</span> Day Streak
+                </div>
+                <div class="badge-box">
+                    🏆 Rank <span id="currentRank">#1</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-container">
+
+            <div class="stat-card">
+                <h3>Total Problems</h3>
+                <p id="totalProblems">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Problems Solved</h3>
+                <p id="problemsSolved">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total Submissions</h3>
+                <p id="totalSubmissions">0</p>
+            </div>
+
+            <!-- Accuracy with Progress Ring -->
+            <div class="stat-card accuracy-card">
+                <h3>Accuracy</h3>
+                <div class="progress-ring">
+                    <svg width="120" height="120">
+                        <circle cx="60" cy="60" r="50" class="progress-bg"/>
+                        <circle cx="60" cy="60" r="50" class="progress-fill" id="accuracyCircle"/>
+                    </svg>
+                    <span id="accuracyPercent">0%</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Dashboard Bottom Grid -->
+        <section class="dashboard-bottom">
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <h2>Recent Submissions</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Problem</th>
+                            <th>Verdict</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentSubmissionsBody">
+                        <!-- JS inject -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions-panel">
+                <h2>Quick Actions</h2>
+
+                <a href="problems.html" class="btn-primary">
+                    🚀 Solve Problems
+                </a>
+
+                <a href="leaderboard.html" class="btn-primary">
+                    🏅 View Leaderboard
+                </a>
+
+                <a href="analytics.html" class="btn-primary">
+                    📊 Performance Analytics
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Shared JS -->
+    <script src="js/script.js"></script>
+
+</body>
+</html>
